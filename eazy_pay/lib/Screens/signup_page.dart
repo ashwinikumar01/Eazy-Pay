@@ -83,7 +83,6 @@ class Signup extends StatelessWidget {
                                         bottom: BorderSide(
                                             color: Colors.grey[200]))),
                                 child: TextField(
-                                  keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
                                       hintText: "Phone Number",
