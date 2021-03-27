@@ -1,9 +1,14 @@
+import 'package:eazy_pay/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       appBar: AppBar(
+        title: Text('Eazy Pay'),
+      ),
+      drawer: AppDrawer(),
       body: SafeArea(
         child: Container(
           color: Colors.blue,
@@ -11,7 +16,6 @@ class HomeScreen extends StatelessWidget {
           width: double.infinity,
           child: Stack(
             children: <Widget>[
-              //Container for top data
               Container(
                 margin: EdgeInsets.symmetric(
                   horizontal: 32,
