@@ -10,7 +10,7 @@ async function initializeClient(): Promise<Db> {
     ignoreUndefined: true,
   });
 
-  return client.db();
+  return client.db('database');
 }
 
 export default async (): Promise<Db> => {

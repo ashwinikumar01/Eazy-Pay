@@ -3,16 +3,12 @@ import {Request , Response} from 'express';
 import twilio from 'twilio';
 import config from '../../config';
 import LoggerInstance from '../../loaders/logger';
+import database from '../../loaders/database';
 
-export async function loginController(phoneNumber: string) {
-    const client = twilio(config.sid, config.authToken);
-    client.messages.create({
-        body: 'Login Attempt!!!',
-        to: `${phoneNumber}`,
-        from: `${config.phoneNumber}`
-    }).then((message) => {
-        LoggerInstance.info(`Login Attempt Message Sent!!! Message : ${message}`);
-    }).catch((error) => {
-        LoggerInstance.error(`Login Attempt Message Sent!!! Error : ${error}`)
-    })
+export async function loginController(phoneNumber: string): Promise<any> {
+    const doc = await (await database()).collection('users').findOne({
+        phoneNumber: phoneNumber
+    });
+    LoggerInstance.info(`User : ${doc}`);
+    return doc;
 }
