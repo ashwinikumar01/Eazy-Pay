@@ -8,7 +8,13 @@ class AppDrawer extends StatelessWidget {
         child: Column(
           children: <Widget>[
             AppBar(
-              title: Text('Eazy Pay'),
+              title: Text(
+                'Eazy Pay',
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+              backgroundColor: Colors.white,
               automaticallyImplyLeading: false,
             ),
             Divider(),
