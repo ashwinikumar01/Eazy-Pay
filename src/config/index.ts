@@ -27,6 +27,21 @@ export default {
   },
 
   /**
+   * Twilio SID
+   */
+  sid: process.env.TWILIO_SID,
+
+  /**
+   * Twilio Auth
+   */
+  authToken: process.env.TWILIO_AUTH,
+
+  /**
+   * Twilio Phone Number
+   */
+  phoneNumber: process.env.PHONE_NUMBER,
+
+  /**
    * API configs
    */
   api: {
