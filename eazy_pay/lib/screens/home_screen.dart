@@ -201,8 +201,6 @@ class HomeScreen extends StatelessWidget {
                           SizedBox(
                             height: 24,
                           ),
-
-                          //Container for buttons
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 32),
                             child: Row(
@@ -301,11 +299,9 @@ class HomeScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-
                           SizedBox(
                             height: 16,
                           ),
-                          //Container Listview for expenses and incomes
                           Container(
                             child: Text(
                               "TODAY",
@@ -418,7 +414,6 @@ class HomeScreen extends StatelessWidget {
                           SizedBox(
                             height: 16,
                           ),
-
                           ListView.builder(
                             itemBuilder: (context, index) {
                               return Container(
@@ -496,8 +491,6 @@ class HomeScreen extends StatelessWidget {
                             controller:
                                 ScrollController(keepScrollOffset: false),
                           ),
-
-                          //now expense
                         ],
                       ),
                       controller: scrollController,
