@@ -1,4 +1,5 @@
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -24,6 +25,21 @@ export default {
   logs: {
     level: process.env.LOG_LEVEL || 'silly',
   },
+
+  /**
+   * Twilio SID
+   */
+  sid: process.env.TWILIO_SID,
+
+  /**
+   * Twilio Auth
+   */
+  authToken: process.env.TWILIO_AUTH,
+
+  /**
+   * Twilio Phone Number
+   */
+  phoneNumber: process.env.PHONE_NUMBER,
 
   /**
    * API configs
