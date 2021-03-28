@@ -18,10 +18,10 @@ async function handleSending(req: Request,res: Response){
         LoggerInstance.info(`TOKEN : ${req.headers.authorization}`);
         const token = req.headers.authorization.split(' ')[1]
         const decoded: any = jsonwebtoken.verify(`${token}`, config.jwtSecret)
-        if(req.body.id.length === 0){
+        if(req.body.phoneNumber.length === 0){
             throw "Invalid Fields"
         }
-        await sendMoney(req.body.id, req.body.amount, decoded.id);
+        await sendMoney(req.body.phoneNumber, req.body.amount, decoded.id, 'SAMPLE');
         res.status(200).json({
             message: 'Transaction Initiated',
             status: 'OK'
