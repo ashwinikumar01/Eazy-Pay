@@ -15,13 +15,7 @@ class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
   bool isLoading = false;
   bool afterPhoneEnter = false;
   Map userData = {};
-  Future<PhoneVerify> banks;
-
-  @override
-  void initState() {
-    super.initState();
-    banks = signUp();
-  }
+  List banksList = [];
 
   Future getUserData() async {
     userData["phoneNumber"] = _phoneController.text;
@@ -30,11 +24,12 @@ class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
 
   Future<PhoneVerify> signUp() async {
     try {
-      await getUserData();
       setState(() {
         afterPhoneEnter = false;
         isLoading = true;
       });
+
+      await getUserData();
 
       final response = await http.post(
         Uri.https(apiUrl, "/api/auth/signup"),
@@ -57,6 +52,7 @@ class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
         );
       } else {
         setState(() {
+          banksList = json.decode(response.body)["banks"];
           afterPhoneEnter = true;
           isLoading = false;
         });
@@ -67,7 +63,7 @@ class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
           ),
         );
       }
-      PhoneVerify.fromJson(json.decode(response.body));
+      return PhoneVerify.fromJson(json.decode(response.body));
     } catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -206,35 +202,33 @@ class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
                             height: 0,
                             width: 0,
                           ),
-                    SizedBox(height: 8),
-                    if (!isLoading && afterPhoneEnter)
-                      FutureBuilder(
-                        future: banks,
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                                  ConnectionState.none &&
-                              snapshot.hasData == null) {
-                            return Container(
-                              height: 0,
-                              width: 0,
-                            );
-                          }
-                          return ListView.builder(
-                            itemCount: snapshot.data.banks.length,
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                title:
-                                    Text("${snapshot.data.banks[index].name}"),
-                              );
-                            },
-                          );
-                        },
-                      ),
                   ],
                 ),
               ),
             ],
           ),
+          SizedBox(height: 8),
+          (!isLoading && afterPhoneEnter)
+              ? ListView.builder(
+                  itemCount: banksList.length,
+                  itemBuilder: (context, index) {
+                    print(banksList[index].name);
+                    return Expanded(
+                      child: ListTile(
+                        title: Text(
+                          banksList[index].name,
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                )
+              : Container(
+                  height: 0,
+                  width: 0,
+                ),
         ],
       ),
     );
