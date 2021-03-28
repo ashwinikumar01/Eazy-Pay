@@ -1,4 +1,5 @@
 import 'package:eazy_pay/Screens/home_screen.dart';
+import 'package:eazy_pay/Screens/loading.dart';
 import 'package:eazy_pay/Screens/send_screen.dart';
 
 import 'package:eazy_pay/Screens/login_page.dart';
