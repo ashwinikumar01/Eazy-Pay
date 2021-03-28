@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:eazy_pay/Animation/FadeAnimation.dart';
 import 'package:eazy_pay/widgets/constants.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:eazy_pay/models/login_model.dart';
 import 'package:eazy_pay/screens/home_screen.dart';
@@ -16,6 +17,7 @@ class _LoginState extends State<Login> {
   final _phoneController = TextEditingController();
   bool _isLoading = false;
   Map userData = {};
+  FlutterSecureStorage secureStorage = FlutterSecureStorage();
 
   Future getPhone() async {
     userData["phoneNumber"] = _phoneController.text;
@@ -23,6 +25,7 @@ class _LoginState extends State<Login> {
   }
 
   Future<LoginModel> login() async {
+    String token = await secureStorage.read(key: "token");
     try {
       setState(() {
         _isLoading = true;
@@ -38,6 +41,7 @@ class _LoginState extends State<Login> {
         body: json.encode(userData),
       );
       print(response.body);
+      print(token);
       if (json.decode(response.body)["success"] == false) {
         setState(() {
           _isLoading = false;
