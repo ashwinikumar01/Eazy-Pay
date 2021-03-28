@@ -4,13 +4,21 @@ class Send extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.purple[800],
-        elevation: 0.0,
-      ),
       backgroundColor: Colors.purple[800],
       body: ListView(
         children: [
+          Row(
+            children: [
+              FloatingActionButton(
+                backgroundColor: Colors.purple[800],
+                elevation: 0.0,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(Icons.arrow_back),
+              ),
+            ],
+          ),
           Column(
             children: [
               SizedBox(height: 70.0),
