@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:eazy_pay/Screens/send_screen.dart';
 import 'package:eazy_pay/Nearby_services/permission_check.dart';
 import 'package:eazy_pay/Screens/nearby_devices_screen.dart';
+import 'package:eazy_pay/Nearby_services/startDiscovery.dart';
+import 'package:eazy_pay/Screens/request_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -81,6 +83,7 @@ class HomeScreen extends StatelessWidget {
                             bool a = await getLocationPermission();
                             bool b = await getStoragePermission();
                             if (a == true && b == true) {
+                              await startDiscovery();
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -121,7 +124,7 @@ class HomeScreen extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Loading()));
+                                    builder: (context) => RequestScreen()));
                           },
                           child: Container(
                             child: Column(
