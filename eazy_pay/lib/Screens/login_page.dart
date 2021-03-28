@@ -1,7 +1,12 @@
 import 'package:eazy_pay/Animation/FadeAnimation.dart';
+import 'package:eazy_pay/Screens/signup_page.dart';
+import 'package:eazy_pay/Screens/validation_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class Login extends StatelessWidget {
+  final TextEditingController controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,13 +73,43 @@ class Login extends StatelessWidget {
                                       border: Border(
                                           bottom: BorderSide(
                                               color: Colors.grey[200]))),
-                                  child: TextField(
+                                  child:
+                                      /*TextField(
                                     keyboardType: TextInputType.number,
                                     decoration: InputDecoration(
                                         border: InputBorder.none,
                                         hintText: "Phone Number",
                                         hintStyle:
                                             TextStyle(color: Colors.grey)),
+                                  ),*/
+                                      InternationalPhoneNumberInput(
+                                    errorMessage: "Invalid Phone Number",
+                                    spaceBetweenSelectorAndTextField: 0,
+
+                                    onInputChanged: (PhoneNumber number) {
+                                      print(number.phoneNumber);
+                                    },
+                                    onInputValidated: (bool value) {
+                                      print(value);
+                                    },
+                                    selectorConfig: SelectorConfig(
+                                      selectorType:
+                                          PhoneInputSelectorType.BOTTOM_SHEET,
+                                    ),
+                                    ignoreBlank: false,
+                                    autoValidateMode: AutovalidateMode.disabled,
+                                    selectorTextStyle:
+                                        TextStyle(color: Colors.black),
+                                    // initialValue: number,
+                                    textFieldController: controller,
+                                    formatInput: false,
+                                    keyboardType:
+                                        TextInputType.numberWithOptions(
+                                            signed: true, decimal: true),
+                                    inputBorder: OutlineInputBorder(),
+                                    onSaved: (PhoneNumber number) {
+                                      print('On Saved: $number');
+                                    },
                                   ),
                                 ),
                               ],
@@ -90,13 +125,39 @@ class Login extends StatelessWidget {
                               borderRadius: BorderRadius.circular(50),
                               color: Color.fromRGBO(49, 39, 79, 1),
                             ),
-                            child: Center(
-                              child: Text(
-                                "Get OTP",
-                                style: TextStyle(color: Colors.white),
+                            child: FlatButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            ValidationScreen()));
+                              },
+                              child: Center(
+                                child: Text(
+                                  "Get OTP",
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               ),
                             ),
                           )),
+                      SizedBox(height: 40.0),
+                      FlatButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Signup()));
+                        },
+                        child: Center(
+                          child: Text(
+                            "Create Account",
+                            style: TextStyle(
+                                color: Color.fromRGBO(49, 39, 79, .6),
+                                fontSize: 15.0),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),

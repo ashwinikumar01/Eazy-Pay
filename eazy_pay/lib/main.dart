@@ -1,8 +1,8 @@
 import 'package:eazy_pay/screens/home_screen.dart';
-import 'package:eazy_pay/screens/phone_verify/banks_list.dart';
 import 'package:eazy_pay/screens/phone_verify/phone-verify_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:eazy_pay/Screens/home_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
     if (token == null) {
       return PhoneVerifyScreen();
     } else {
-      return HomeScreen();
+      return null;
     }
   }
 
@@ -36,6 +36,9 @@ class _MyAppState extends State<MyApp> {
       title: 'Eazy Pay',
       home: homePage(),
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+      ),
     );
   }
 }

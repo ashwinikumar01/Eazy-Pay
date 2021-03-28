@@ -1,6 +1,13 @@
+import 'dart:isolate';
+
+import 'package:eazy_pay/Screens/loading.dart';
+import 'package:eazy_pay/Screens/topup_screen.dart';
 import 'package:eazy_pay/widgets/app_drawer.dart';
 import 'package:eazy_pay/widgets/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:eazy_pay/Screens/send_screen.dart';
+import 'package:eazy_pay/Nearby_services/permission_check.dart';
+import 'package:eazy_pay/Screens/nearby_devices_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -13,7 +20,7 @@ class HomeScreen extends StatelessWidget {
       drawer: AppDrawer(),
       body: SafeArea(
         child: Container(
-          color: Colors.indigo,
+          color: Colors.purple[800],
           height: MediaQuery.of(context).size.height,
           width: double.infinity,
           child: Stack(
@@ -30,7 +37,7 @@ class HomeScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          "\$2589.90",
+                          "\₹ 0.00",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 36,
@@ -39,10 +46,6 @@ class HomeScreen extends StatelessWidget {
                         Container(
                           child: Row(
                             children: <Widget>[
-                              Icon(
-                                Icons.notifications,
-                                color: Colors.lightBlue[100],
-                              ),
                               SizedBox(
                                 width: 16,
                               ),
@@ -52,6 +55,7 @@ class HomeScreen extends StatelessWidget {
                                 child: ClipOval(
                                     child: Icon(
                                   Icons.verified_user,
+                                  color: Color.fromRGBO(49, 39, 79, 1),
                                 )),
                               )
                             ],
@@ -72,88 +76,116 @@ class HomeScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Container(
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: Color.fromRGBO(243, 245, 248, 1),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(18))),
-                                child: Icon(
-                                  Icons.date_range,
-                                  color: Colors.blue[900],
-                                  size: 30,
+                        FlatButton(
+                          onPressed: () async {
+                            bool a = await getLocationPermission();
+                            bool b = await getStoragePermission();
+                            if (a == true && b == true) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => NearbyDevices()));
+                            }
+                          },
+                          child: Container(
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: Color.fromRGBO(243, 245, 248, 1),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(18))),
+                                  child: Icon(
+                                    Icons.date_range,
+                                    color: Color.fromRGBO(49, 39, 79, 1),
+                                    size: 30,
+                                  ),
+                                  padding: EdgeInsets.all(12),
                                 ),
-                                padding: EdgeInsets.all(12),
-                              ),
-                              SizedBox(
-                                height: 4,
-                              ),
-                              Text(
-                                "Send",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 14,
-                                    color: Colors.blue[100]),
-                              ),
-                            ],
+                                SizedBox(
+                                  height: 4,
+                                ),
+                                Text(
+                                  "Send",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14,
+                                      color: Colors.blue[100]),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                        Container(
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: Color.fromRGBO(243, 245, 248, 1),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(18))),
-                                child: Icon(
-                                  Icons.public,
-                                  color: Colors.blue[900],
-                                  size: 30,
+                        FlatButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Loading()));
+                          },
+                          child: Container(
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: Color.fromRGBO(243, 245, 248, 1),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(18))),
+                                  child: Icon(
+                                    Icons.public,
+                                    color: Color.fromRGBO(49, 39, 79, 1),
+                                    size: 30,
+                                  ),
+                                  padding: EdgeInsets.all(12),
                                 ),
-                                padding: EdgeInsets.all(12),
-                              ),
-                              SizedBox(
-                                height: 4,
-                              ),
-                              Text(
-                                "Request",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 14,
-                                    color: Colors.blue[100]),
-                              ),
-                            ],
+                                SizedBox(
+                                  height: 4,
+                                ),
+                                Text(
+                                  "Request",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14,
+                                      color: Colors.blue[100]),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                        Container(
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: Color.fromRGBO(243, 245, 248, 1),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(18))),
-                                child: Icon(
-                                  Icons.trending_down,
-                                  color: Colors.blue[900],
-                                  size: 30,
+                        FlatButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Topup()));
+                          },
+                          child: Container(
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: Color.fromRGBO(243, 245, 248, 1),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(18))),
+                                  child: Icon(
+                                    Icons.trending_down,
+                                    color: Color.fromRGBO(49, 39, 79, 1),
+                                    size: 30,
+                                  ),
+                                  padding: EdgeInsets.all(12),
                                 ),
-                                padding: EdgeInsets.all(12),
-                              ),
-                              SizedBox(
-                                height: 4,
-                              ),
-                              Text(
-                                "Topup",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 14,
-                                    color: Colors.blue[100]),
-                              ),
-                            ],
+                                SizedBox(
+                                  height: 4,
+                                ),
+                                Text(
+                                  "Topup",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14,
+                                      color: Colors.blue[100]),
+                                ),
+                              ],
+                            ),
                           ),
                         )
                       ],
@@ -335,7 +367,7 @@ class HomeScreen extends StatelessWidget {
                                               Radius.circular(18))),
                                       child: Icon(
                                         Icons.date_range,
-                                        color: Colors.lightBlue[900],
+                                        color: Color.fromRGBO(49, 39, 79, 1),
                                       ),
                                       padding: EdgeInsets.all(12),
                                     ),
@@ -432,7 +464,7 @@ class HomeScreen extends StatelessWidget {
                                               Radius.circular(18))),
                                       child: Icon(
                                         Icons.directions_car,
-                                        color: Colors.lightBlue[900],
+                                        color: Color.fromRGBO(49, 39, 79, 1),
                                       ),
                                       padding: EdgeInsets.all(12),
                                     ),
