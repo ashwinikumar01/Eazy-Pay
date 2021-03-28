@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:eazy_pay/Animation/FadeAnimation.dart';
 import 'package:eazy_pay/models/phone_verify.dart';
+import 'package:eazy_pay/screens/login_page.dart';
 import 'package:eazy_pay/screens/phone_verify/banks_list.dart';
 import 'package:eazy_pay/widgets/constants.dart';
 import 'package:flutter/material.dart';
@@ -216,6 +217,17 @@ class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
                             height: 0,
                             width: 0,
                           ),
+                    FlatButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Login(),
+                          ),
+                        );
+                      },
+                      child: Text("Login"),
+                    ),
                   ],
                 ),
               ),

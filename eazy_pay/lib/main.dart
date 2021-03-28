@@ -1,6 +1,7 @@
 import 'package:eazy_pay/screens/home_screen.dart';
 import 'package:eazy_pay/screens/loading.dart';
 import 'package:eazy_pay/screens/phone_verify/phone-verify_screen.dart';
+import 'package:eazy_pay/screens/sign_up_screen/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
