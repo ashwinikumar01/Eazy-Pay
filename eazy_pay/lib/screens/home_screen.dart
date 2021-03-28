@@ -1,6 +1,9 @@
+import 'dart:isolate';
+
 import 'package:eazy_pay/widgets/app_drawer.dart';
 import 'package:eazy_pay/widgets/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:eazy_pay/Screens/send_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -52,6 +55,7 @@ class HomeScreen extends StatelessWidget {
                                 child: ClipOval(
                                     child: Icon(
                                   Icons.verified_user,
+                                  color: Color.fromRGBO(49, 39, 79, 1),
                                 )),
                               )
                             ],
@@ -72,32 +76,40 @@ class HomeScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Container(
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: Color.fromRGBO(243, 245, 248, 1),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(18))),
-                                child: Icon(
-                                  Icons.date_range,
-                                  color: Color.fromRGBO(49, 39, 79, 1),
-                                  size: 30,
+                        FlatButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Send()));
+                          },
+                          child: Container(
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: Color.fromRGBO(243, 245, 248, 1),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(18))),
+                                  child: Icon(
+                                    Icons.date_range,
+                                    color: Color.fromRGBO(49, 39, 79, 1),
+                                    size: 30,
+                                  ),
+                                  padding: EdgeInsets.all(12),
                                 ),
-                                padding: EdgeInsets.all(12),
-                              ),
-                              SizedBox(
-                                height: 4,
-                              ),
-                              Text(
-                                "Send",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 14,
-                                    color: Colors.blue[100]),
-                              ),
-                            ],
+                                SizedBox(
+                                  height: 4,
+                                ),
+                                Text(
+                                  "Send",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14,
+                                      color: Colors.blue[100]),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         Container(
@@ -335,7 +347,7 @@ class HomeScreen extends StatelessWidget {
                                               Radius.circular(18))),
                                       child: Icon(
                                         Icons.date_range,
-                                        color: Colors.lightBlue[900],
+                                        color: Color.fromRGBO(49, 39, 79, 1),
                                       ),
                                       padding: EdgeInsets.all(12),
                                     ),
@@ -432,7 +444,7 @@ class HomeScreen extends StatelessWidget {
                                               Radius.circular(18))),
                                       child: Icon(
                                         Icons.directions_car,
-                                        color: Colors.lightBlue[900],
+                                        color: Color.fromRGBO(49, 39, 79, 1),
                                       ),
                                       padding: EdgeInsets.all(12),
                                     ),

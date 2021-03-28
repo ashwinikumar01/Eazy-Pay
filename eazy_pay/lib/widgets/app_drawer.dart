@@ -53,6 +53,7 @@ class AppDrawer extends StatelessWidget {
             title: Text("Profile",
                 style: TextStyle(
                   fontSize: 18.0,
+                  color: Color.fromRGBO(49, 39, 79, 1),
                   letterSpacing: 1.5,
                 )),
             leading: Icon(Icons.person, color: Colors.black, size: 30.0),
@@ -67,6 +68,7 @@ class AppDrawer extends StatelessWidget {
             },
             title: Text("Log Out",
                 style: TextStyle(
+                  color: Color.fromRGBO(49, 39, 79, 1),
                   fontSize: 18.0,
                   letterSpacing: 1.5,
                 )),
