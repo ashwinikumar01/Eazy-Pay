@@ -1,10 +1,13 @@
 import 'dart:isolate';
 
+import 'package:eazy_pay/Screens/loading.dart';
 import 'package:eazy_pay/Screens/topup_screen.dart';
 import 'package:eazy_pay/widgets/app_drawer.dart';
 import 'package:eazy_pay/widgets/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:eazy_pay/Screens/send_screen.dart';
+import 'package:eazy_pay/Nearby_services/permission_check.dart';
+import 'package:eazy_pay/Screens/nearby_devices_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -34,7 +37,7 @@ class HomeScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          "\$2589.90",
+                          "\₹ 0.00",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 36,
@@ -43,10 +46,6 @@ class HomeScreen extends StatelessWidget {
                         Container(
                           child: Row(
                             children: <Widget>[
-                              Icon(
-                                Icons.notifications,
-                                color: Colors.lightBlue[100],
-                              ),
                               SizedBox(
                                 width: 16,
                               ),
@@ -78,11 +77,15 @@ class HomeScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         FlatButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Send()));
+                          onPressed: () async {
+                            bool a = await getLocationPermission();
+                            bool b = await getStoragePermission();
+                            if (a == true && b == true) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => NearbyDevices()));
+                            }
                           },
                           child: Container(
                             child: Column(
@@ -114,7 +117,12 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                         FlatButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Loading()));
+                          },
                           child: Container(
                             child: Column(
                               children: <Widget>[

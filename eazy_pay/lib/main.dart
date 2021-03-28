@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:eazy_pay/Screens/signup_page.dart';
 import 'package:eazy_pay/Screens/profile_page.dart';
 import 'package:eazy_pay/Screens/topup_screen.dart';
+import 'package:eazy_pay/Screens/nearby_devices_screen.dart';
 
 void main() {
   runApp(MyApp());
