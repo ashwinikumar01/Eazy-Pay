@@ -35,7 +35,9 @@ class Profile extends StatelessWidget {
         backgroundColor: Colors.purple[800],
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ),
       body: Stack(

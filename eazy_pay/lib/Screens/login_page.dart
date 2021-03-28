@@ -85,7 +85,7 @@ class Login extends StatelessWidget {
                                       InternationalPhoneNumberInput(
                                     errorMessage: "Invalid Phone Number",
                                     spaceBetweenSelectorAndTextField: 0,
-                                    autoFocus: true,
+
                                     onInputChanged: (PhoneNumber number) {
                                       print(number.phoneNumber);
                                     },
