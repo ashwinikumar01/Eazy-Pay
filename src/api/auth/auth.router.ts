@@ -12,7 +12,7 @@ export default (): Router => {
 }
 async function signupHandler(req:Request,res:Response){
     try{
-        if(req.body.email.length>=1){
+               if(req.body.email.length>=1){
             return res.status(409).json({
                 message:'User already exists'
             })
@@ -25,7 +25,7 @@ async function signupHandler(req:Request,res:Response){
         //   {
         //       expiresIn: "10000000020000h"
         //   })
-          return res.status(200).json({
+              res.status(200).json({
               status:"Ok",
               message: "User Details being Sent",
                 banks: banks,
