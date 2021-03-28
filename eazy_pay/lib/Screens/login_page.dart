@@ -1,5 +1,4 @@
 import 'package:eazy_pay/Animation/FadeAnimation.dart';
-import 'package:eazy_pay/Screens/signup_page.dart';
 import 'package:eazy_pay/Screens/validation_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -144,10 +143,10 @@ class Login extends StatelessWidget {
                       SizedBox(height: 40.0),
                       FlatButton(
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Signup()));
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => Signup()));
                         },
                         child: Center(
                           child: Text(
