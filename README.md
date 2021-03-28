@@ -1,14 +1,3 @@
-# grocery-inventory
-
-## 🔗 Links
-- [Grocery-inventory apk](https://github.com/ankithans/help-me/)
-- [Backend API](https://grocery-invent.herokuapp.com/)
-- [API documentation](https://documenter.getpostman.com/view/11391372/TVetcSDt)
-- [Video Explanation](https://vimeo.com/)
-
-## 📊 Flow Diagram
-<img src="https://github.com/ankithans/grocery-inventory/blob/main/abc.png">
-
 ## ❓ Problem Statement
 > The era is of Digital Transformation and in this era, why should money exchange be not digital too? Hence we came up with Eazy-Pay, an easy way for all transactions. Now easily send money from anywhere, anytime. Also, send money offline too. On offline money transfer, the person receiving the money receives a receipt using the Nearby API and once the devices connect to the Internet, they automatically connect to the server and complete the transaction thus providing a non blocking transaction experience.
 
