@@ -48,6 +48,7 @@ async function loginHandler(req: Request, res: Response) {
         status: 'OK',
         message: 'User Signed In',
         token: token,
+        id: user._id.toString()
       });
     }
   } catch (e) {
