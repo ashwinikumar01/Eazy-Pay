@@ -217,16 +217,22 @@ class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
                             height: 0,
                             width: 0,
                           ),
-                    FlatButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Login(),
-                          ),
-                        );
-                      },
-                      child: Text("Login"),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                        child: FlatButton(
+                          color: Colors.yellow,
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Login(),
+                              ),
+                            );
+                          },
+                          child: Text("Login"),
+                        ),
+                      ),
                     ),
                   ],
                 ),
