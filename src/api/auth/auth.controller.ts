@@ -28,7 +28,16 @@ export async function completeRegistrationController(id: string, email: string){
     const doc = await (await database()).collection('banks').findOne({
         _id: new ObjectId(`${id}`)
     })
+    if(doc === null){
+      throw "No Such Bank Exists"
+    }
     let idInserted;
+    const user = await (await database()).collection('users').findOne({
+      phoneNumber: doc.phoneNumber
+  })
+  if(user != null){
+    throw "User Exists"
+  }
     await (await database()).collection('users').insertOne({
         email:email,
         phoneNumber: doc.phoneNumber,
