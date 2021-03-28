@@ -1,50 +1,56 @@
 import 'dart:convert';
-
 import 'package:eazy_pay/Animation/FadeAnimation.dart';
+import 'package:eazy_pay/models/phone_verify.dart';
+import 'package:eazy_pay/screens/login_page.dart';
+import 'package:eazy_pay/screens/phone_verify/banks_list.dart';
 import 'package:eazy_pay/widgets/constants.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:http/http.dart' as http;
-import 'package:eazy_pay/models/login_model.dart';
-import 'package:eazy_pay/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class Login extends StatefulWidget {
+class PhoneVerifyScreen extends StatefulWidget {
   @override
-  _LoginState createState() => _LoginState();
+  _PhoneVerifyScreenState createState() => _PhoneVerifyScreenState();
 }
 
-class _LoginState extends State<Login> {
+class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
   final _phoneController = TextEditingController();
-  bool _isLoading = false;
+  bool isLoading = false;
+  bool afterPhoneEnter = false;
   Map userData = {};
+  List banks = [];
   FlutterSecureStorage secureStorage = FlutterSecureStorage();
 
-  Future getPhone() async {
+  Future getUserData() async {
     userData["phoneNumber"] = _phoneController.text;
     print(userData);
   }
 
-  Future<LoginModel> login() async {
-    String token = await secureStorage.read(key: "token");
+  Future<PhoneVerify> signUp() async {
     try {
       setState(() {
-        _isLoading = true;
+        afterPhoneEnter = false;
+        isLoading = true;
       });
 
-      await getPhone();
+      await getUserData();
 
       final response = await http.post(
-        Uri.https(apiUrl, "/api/auth/login"),
+        Uri.https(apiUrl, "/api/auth/signup"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: json.encode(userData),
       );
       print(response.body);
-      print(token);
+      // String token = JsonDecode(response.body)["token"];
+
+      // await secureStorage.write(key: "token", value: token);
+      // print(token);
       if (json.decode(response.body)["success"] == false) {
         setState(() {
-          _isLoading = false;
+          afterPhoneEnter = false;
+          isLoading = false;
         });
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -54,7 +60,10 @@ class _LoginState extends State<Login> {
         );
       } else {
         setState(() {
-          _isLoading = false;
+          banks = json.decode(response.body)["banks"];
+          print(banks[0]["name"]);
+          afterPhoneEnter = true;
+          isLoading = false;
         });
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -63,7 +72,7 @@ class _LoginState extends State<Login> {
           ),
         );
       }
-      return LoginModel.fromJson(json.decode(response.body));
+      return PhoneVerify.fromJson(json.decode(response.body));
     } catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -74,7 +83,8 @@ class _LoginState extends State<Login> {
         ),
       );
       setState(() {
-        _isLoading = false;
+        afterPhoneEnter = false;
+        isLoading = false;
       });
       print(error);
     }
@@ -119,7 +129,7 @@ class _LoginState extends State<Login> {
                     FadeAnimation(
                         1.3,
                         Text(
-                          "Login",
+                          "Phone Verify",
                           style: TextStyle(
                               color: Color.fromRGBO(49, 39, 79, 1),
                               fontSize: 25,
@@ -166,20 +176,19 @@ class _LoginState extends State<Login> {
                     GestureDetector(
                       onTap: () async {
                         if (_phoneController.text == "" ||
-                            _phoneController.text.isEmpty ||
                             _phoneController.text.length < 10) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               duration: Duration(milliseconds: 5000),
-                              content: Text("Please enter a valid phone no"),
+                              content: Text("Please enter valid details"),
                             ),
                           );
                         } else {
-                          await login();
+                          await signUp();
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => HomeScreen(),
+                              builder: (context) => BanksList(banks: banks),
                             ),
                           );
                         }
@@ -193,14 +202,14 @@ class _LoginState extends State<Login> {
                         ),
                         child: Center(
                           child: Text(
-                            "Login",
+                            "Submit",
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
                       ),
                     ),
                     SizedBox(height: 8),
-                    _isLoading
+                    isLoading
                         ? Center(
                             child: CircularProgressIndicator(),
                           )
@@ -208,6 +217,23 @@ class _LoginState extends State<Login> {
                             height: 0,
                             width: 0,
                           ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                        child: FlatButton(
+                          color: Colors.yellow,
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Login(),
+                              ),
+                            );
+                          },
+                          child: Text("Login"),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

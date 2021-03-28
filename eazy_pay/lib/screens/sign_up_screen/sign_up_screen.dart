@@ -1,78 +1,70 @@
 import 'dart:convert';
-
 import 'package:eazy_pay/Animation/FadeAnimation.dart';
-import 'package:eazy_pay/widgets/constants.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:http/http.dart' as http;
-import 'package:eazy_pay/models/login_model.dart';
+import 'package:eazy_pay/models/signup_email.dart';
 import 'package:eazy_pay/screens/home_screen.dart';
+import 'package:eazy_pay/widgets/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class Login extends StatefulWidget {
+class SignUpScreen extends StatefulWidget {
+  final String id;
+
+  const SignUpScreen({Key key, @required this.id}) : super(key: key);
   @override
-  _LoginState createState() => _LoginState();
+  _SignUpScreenState createState() => _SignUpScreenState();
 }
 
-class _LoginState extends State<Login> {
-  final _phoneController = TextEditingController();
+class _SignUpScreenState extends State<SignUpScreen> {
+  final _emailController = TextEditingController();
   bool _isLoading = false;
   Map userData = {};
+
   FlutterSecureStorage secureStorage = FlutterSecureStorage();
 
-  Future getPhone() async {
-    userData["phoneNumber"] = _phoneController.text;
+  Future getData(String id) async {
+    userData["id"] = id;
+    userData["email"] = _emailController.text;
     print(userData);
   }
 
-  Future<LoginModel> login() async {
-    String token = await secureStorage.read(key: "token");
+  Future<SignupEmail> signUpEmail(String id) async {
     try {
+      await getData(id);
       setState(() {
         _isLoading = true;
       });
-
-      await getPhone();
-
-      final response = await http.post(
-        Uri.https(apiUrl, "/api/auth/login"),
+      var response = await http.post(
+        Uri.https(apiUrl, "/api/auth/signup/complete"),
         headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
+          "Content-Type": "application/json; charset=UTF-8",
         },
         body: json.encode(userData),
       );
+
       print(response.body);
-      print(token);
       if (json.decode(response.body)["success"] == false) {
-        setState(() {
-          _isLoading = false;
-        });
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             duration: Duration(milliseconds: 5000),
             content: Text(json.decode(response.body)["error"]),
           ),
         );
-      } else {
-        setState(() {
-          _isLoading = false;
-        });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            duration: Duration(milliseconds: 5000),
-            content: Text(json.decode(response.body)["message"]),
-          ),
-        );
       }
-      return LoginModel.fromJson(json.decode(response.body));
+
+      setState(() {
+        _isLoading = false;
+      });
+
+      String token = json.decode(response.body)["token"];
+      print(token);
+      await secureStorage.write(key: "token", value: token);
+
+      if (json.decode(response.body)["success"] == true) {
+        print(token);
+      }
+      return SignupEmail.fromJson(json.decode(response.body));
     } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          duration: Duration(milliseconds: 5000),
-          content: Text(
-            error.toString(),
-          ),
-        ),
-      );
       setState(() {
         _isLoading = false;
       });
@@ -119,7 +111,7 @@ class _LoginState extends State<Login> {
                     FadeAnimation(
                         1.3,
                         Text(
-                          "Login",
+                          "Email Signup",
                           style: TextStyle(
                               color: Color.fromRGBO(49, 39, 79, 1),
                               fontSize: 25,
@@ -151,10 +143,10 @@ class _LoginState extends State<Login> {
                                   ),
                                 ),
                                 child: TextField(
-                                  controller: _phoneController,
+                                  controller: _emailController,
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
-                                    hintText: "Enter Your Phone No",
+                                    hintText: "Enter Your Email",
                                     hintStyle: TextStyle(color: Colors.grey),
                                   ),
                                 ),
@@ -165,17 +157,17 @@ class _LoginState extends State<Login> {
                     SizedBox(height: 40),
                     GestureDetector(
                       onTap: () async {
-                        if (_phoneController.text == "" ||
-                            _phoneController.text.isEmpty ||
-                            _phoneController.text.length < 10) {
+                        if (_emailController.text == "" ||
+                            _emailController.text.isEmpty ||
+                            !_emailController.text.contains("@")) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               duration: Duration(milliseconds: 5000),
-                              content: Text("Please enter a valid phone no"),
+                              content: Text("Please enter a valid email id"),
                             ),
                           );
                         } else {
-                          await login();
+                          await signUpEmail(widget.id);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -193,7 +185,7 @@ class _LoginState extends State<Login> {
                         ),
                         child: Center(
                           child: Text(
-                            "Login",
+                            "Submit",
                             style: TextStyle(color: Colors.white),
                           ),
                         ),

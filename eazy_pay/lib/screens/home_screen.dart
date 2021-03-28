@@ -1,15 +1,9 @@
-import 'dart:isolate';
-
 import 'package:eazy_pay/Screens/loading.dart';
 import 'package:eazy_pay/Screens/topup_screen.dart';
+import 'package:eazy_pay/screens/send_screen.dart';
 import 'package:eazy_pay/widgets/app_drawer.dart';
 import 'package:eazy_pay/widgets/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:eazy_pay/Screens/send_screen.dart';
-import 'package:eazy_pay/Nearby_services/permission_check.dart';
-import 'package:eazy_pay/Screens/nearby_devices_screen.dart';
-import 'package:eazy_pay/Nearby_services/startDiscovery.dart';
-import 'package:eazy_pay/Screens/request_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -79,16 +73,13 @@ class HomeScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         FlatButton(
-                          onPressed: () async {
-                            bool a = await getLocationPermission();
-                            bool b = await getStoragePermission();
-                            if (a == true && b == true) {
-                              await startDiscovery();
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => NearbyDevices()));
-                            }
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Send(),
+                              ),
+                            );
                           },
                           child: Container(
                             child: Column(
@@ -120,12 +111,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                         FlatButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => RequestScreen()));
-                          },
+                          onPressed: () {},
                           child: Container(
                             child: Column(
                               children: <Widget>[
