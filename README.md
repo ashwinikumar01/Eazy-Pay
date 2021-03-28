@@ -14,9 +14,9 @@
 
 ## 💻 Samples:
 
-<img src="https://github.com/sbiswas2209/grocery-inventory/blob/main/eazy_pay/Screenshots/HomeScreen.png" width="250"> &nbsp;&nbsp;&nbsp;&nbsp; <img src="https://github.com/sbiswas2209/grocery-inventory/blob/main/eazy_pay/Screenshots/home-ui.gif" width="250" style="float:right"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <img src="" width="250">
+<img src="https://github.com/sbiswas2209/Eazy-Pay/blob/main/eazy_pay/Screenshots/HomeScreen.png" width="250"> &nbsp;&nbsp;&nbsp;&nbsp; <img src="https://github.com/sbiswas2209/Eazy-Pay/blob/main/eazy_pay/Screenshots/home-ui.gif" width="250" style="float:right"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <img src="" width="250">
 
-<img src="https://github.com/sbiswas2209/grocery-inventory/blob/main/eazy_pay/Screenshots/login.gif" width="250"> &nbsp;&nbsp;&nbsp;&nbsp; <img src="https://github.com/sbiswas2209/grocery-inventory/blob/main/eazy_pay/Screenshots/Send-Screen.png" width="250" style="float:right"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <img src="" width="250">
+<img src="https://github.com/sbiswas2209/Eazy-Pay/blob/main/eazy_pay/Screenshots/login.gif" width="250"> &nbsp;&nbsp;&nbsp;&nbsp; <img src="https://github.com/sbiswas2209/Eazy-Pay/blob/main/eazy_pay/Screenshots/Send-Screen.png" width="250" style="float:right"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <img src="" width="250">
 
 ## 👣 steps to run the project
 - clone the repo in your local machine
