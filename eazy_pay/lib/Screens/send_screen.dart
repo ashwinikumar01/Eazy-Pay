@@ -18,7 +18,7 @@ class _SendState extends State<Send> {
   bool dataPresent = false;
 
   Future sendMoney() async {
-    data["email"] = _moneyController.text;
+    data["money"] = _moneyController.text;
     print(data);
   }
 
