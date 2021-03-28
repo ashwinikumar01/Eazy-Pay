@@ -5,6 +5,7 @@ import 'package:eazy_pay/screens/phone_verify/banks_list.dart';
 import 'package:eazy_pay/widgets/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class PhoneVerifyScreen extends StatefulWidget {
   @override
@@ -17,6 +18,7 @@ class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
   bool afterPhoneEnter = false;
   Map userData = {};
   List banks = [];
+  FlutterSecureStorage secureStorage = FlutterSecureStorage();
 
   Future getUserData() async {
     userData["phoneNumber"] = _phoneController.text;
@@ -40,6 +42,10 @@ class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
         body: json.encode(userData),
       );
       print(response.body);
+      // String token = JsonDecode(response.body)["token"];
+
+      // await secureStorage.write(key: "token", value: token);
+      // print(token);
       if (json.decode(response.body)["success"] == false) {
         setState(() {
           afterPhoneEnter = false;
@@ -215,13 +221,6 @@ class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
               ),
             ],
           ),
-          // SizedBox(height: 8),
-          // (!isLoading && afterPhoneEnter)
-          //     ? BanksList(banks: banks)
-          //     : Container(
-          //         height: 0,
-          //         width: 0,
-          //       ),
         ],
       ),
     );
