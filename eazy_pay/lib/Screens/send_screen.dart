@@ -32,7 +32,9 @@ class _SendState extends State<Send> {
       var response = await http.post(
         Uri.https(apiUrl, "/api/transaction/send"),
         headers: <String, String>{
-          "x-auth-token": token,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
         },
         body: json.encode(data),
       );
