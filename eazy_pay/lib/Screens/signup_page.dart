@@ -1,4 +1,5 @@
 import 'package:eazy_pay/Animation/FadeAnimation.dart';
+import 'package:eazy_pay/Screens/login_page.dart';
 import 'package:flutter/material.dart';
 
 class Signup extends StatelessWidget {
@@ -69,7 +70,6 @@ class Signup extends StatelessWidget {
                                         bottom: BorderSide(
                                             color: Colors.grey[200]))),
                                 child: TextField(
-                                  keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
                                       hintText: "Email address",
@@ -83,6 +83,7 @@ class Signup extends StatelessWidget {
                                         bottom: BorderSide(
                                             color: Colors.grey[200]))),
                                 child: TextField(
+                                  keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
                                       hintText: "Phone Number",
@@ -102,20 +103,29 @@ class Signup extends StatelessWidget {
                             borderRadius: BorderRadius.circular(50),
                             color: Color.fromRGBO(49, 39, 79, 1),
                           ),
-                          child: Center(
-                            child: Text(
-                              "Submit",
-                              style: TextStyle(color: Colors.white),
+                          child: FlatButton(
+                            onPressed: () {},
+                            child: Center(
+                              child: Text(
+                                "Submit",
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           ),
                         )),
                     SizedBox(height: 40.0),
-                    Center(
-                      child: Text(
-                        "Already have an account?",
-                        style: TextStyle(
-                            color: Color.fromRGBO(49, 39, 79, .6),
-                            fontSize: 15.0),
+                    FlatButton(
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Login()));
+                      },
+                      child: Center(
+                        child: Text(
+                          "Already have an account?",
+                          style: TextStyle(
+                              color: Color.fromRGBO(49, 39, 79, .6),
+                              fontSize: 15.0),
+                        ),
                       ),
                     ),
                   ],

@@ -77,13 +77,16 @@ class _ValidationScreenState extends State<ValidationScreen> {
                     SizedBox(height: 60),
                     FadeAnimation(
                         1.7,
-                        Text(
-                          "Resend OTP",
-                          style: TextStyle(
-                              color: Color.fromRGBO(49, 39, 79, .6),
-                              fontSize: 15.0),
+                        FlatButton(
+                          onPressed: () {},
+                          child: Text(
+                            "Resend OTP",
+                            style: TextStyle(
+                                color: Color.fromRGBO(49, 39, 79, .6),
+                                fontSize: 15.0),
+                          ),
                         )),
-                    SizedBox(height: 40),
+                    SizedBox(height: 15),
                     FadeAnimation(
                         1.9,
                         Container(
@@ -93,10 +96,15 @@ class _ValidationScreenState extends State<ValidationScreen> {
                             borderRadius: BorderRadius.circular(50),
                             color: Color.fromRGBO(49, 39, 79, 1),
                           ),
-                          child: Center(
-                            child: Text(
-                              "Back",
-                              style: TextStyle(color: Colors.white),
+                          child: FlatButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Center(
+                              child: Text(
+                                "Back",
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           ),
                         )),
