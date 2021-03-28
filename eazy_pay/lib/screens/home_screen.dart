@@ -1,11 +1,8 @@
-import 'dart:isolate';
-
 import 'package:eazy_pay/Screens/loading.dart';
 import 'package:eazy_pay/Screens/topup_screen.dart';
 import 'package:eazy_pay/widgets/app_drawer.dart';
 import 'package:eazy_pay/widgets/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:eazy_pay/Screens/send_screen.dart';
 import 'package:eazy_pay/Nearby_services/permission_check.dart';
 import 'package:eazy_pay/Screens/nearby_devices_screen.dart';
 

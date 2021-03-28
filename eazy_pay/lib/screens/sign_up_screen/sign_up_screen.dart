@@ -28,7 +28,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     print(userData);
   }
 
-// 605f6bdc09a35fc34389c223
   Future<SignupEmail> signUpEmail(String id) async {
     try {
       await getData(id);

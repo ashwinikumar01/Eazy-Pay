@@ -1,6 +1,74 @@
+import 'package:eazy_pay/models/send_money_online.dart';
+import 'package:eazy_pay/widgets/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class Send extends StatelessWidget {
+class Send extends StatefulWidget {
+  @override
+  _SendState createState() => _SendState();
+}
+
+class _SendState extends State<Send> {
+  bool _isLoading = false;
+  Map data = {};
+  final _moneyController = TextEditingController();
+  FlutterSecureStorage secureStorage = FlutterSecureStorage();
+  bool dataPresent = false;
+
+  Future sendMoney() async {
+    data["email"] = _moneyController.text;
+    print(data);
+  }
+
+  Future<SendMoneyOnline> sendMoneyOnline() async {
+    String token = await secureStorage.read(key: "token");
+    try {
+      await sendMoney();
+      setState(() {
+        _isLoading = true;
+      });
+      var response = await http.post(
+        Uri.https(apiUrl, "/api/transaction/send"),
+        headers: <String, String>{
+          "x-auth-token": token,
+        },
+        body: json.encode(data),
+      );
+      print(response.body);
+
+      if (json.decode(response.body)["success"] == false) {
+        setState(() {
+          _isLoading = false;
+          dataPresent = false;
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+            json.decode(response.body)["error"],
+          ),
+        ));
+      } else {
+        setState(() {
+          _isLoading = false;
+          dataPresent = true;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+            json.decode(response.body)["success"],
+          ),
+        ));
+      }
+      return SendMoneyOnline.fromJson(json.decode(response.body));
+    } catch (error) {
+      setState(() {
+        _isLoading = false;
+      });
+      print(error);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,9 +119,12 @@ class Send extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                          border:
-                              Border(bottom: BorderSide(color: Colors.white))),
+                        border: Border(
+                          bottom: BorderSide(color: Colors.white),
+                        ),
+                      ),
                       child: TextField(
+                        controller: _moneyController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                             border: InputBorder.none,
