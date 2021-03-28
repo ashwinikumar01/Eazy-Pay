@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const apiUrl = "https://eazy-pay-api.herokuapp.com";
+const apiUrl = "eazy-pay-api.herokuapp.com";
 
 AppBar titleAppbar(context,
     {@required String title,
