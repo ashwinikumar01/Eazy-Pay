@@ -8,6 +8,9 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SignUpScreen extends StatefulWidget {
+  final String id;
+
+  const SignUpScreen({Key key, @required this.id}) : super(key: key);
   @override
   _SignUpScreenState createState() => _SignUpScreenState();
 }
@@ -19,16 +22,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   FlutterSecureStorage secureStorage = FlutterSecureStorage();
 
-  Future getData() async {
-    String token = await secureStorage.read(key: "token");
-    userData["token"] = token;
-    userData["emailId"] = _emailController.text;
+  Future getData(String id) async {
+    userData["id"] = id;
+    userData["email"] = _emailController.text;
     print(userData);
   }
 
-  Future<SignupEmail> signUpEmail() async {
+// 605f6bdc09a35fc34389c223
+  Future<SignupEmail> signUpEmail(String id) async {
     try {
-      await getData();
+      await getData(id);
       setState(() {
         _isLoading = true;
       });
@@ -165,7 +168,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           );
                         } else {
-                          await signUpEmail();
+                          await signUpEmail(widget.id);
                           Navigator.push(
                             context,
                             MaterialPageRoute(

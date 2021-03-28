@@ -4,7 +4,6 @@ import 'package:eazy_pay/screens/sign_up_screen/sign_up_screen.dart';
 import 'package:eazy_pay/widgets/constants.dart';
 import 'package:flutter/material.dart';
 
-
 class BanksList extends StatefulWidget {
   const BanksList({
     Key key,
@@ -18,7 +17,6 @@ class BanksList extends StatefulWidget {
 }
 
 class _BanksListState extends State<BanksList> {
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +32,9 @@ class _BanksListState extends State<BanksList> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SignUpScreen(),
+                  builder: (context) => SignUpScreen(
+                    id: widget.banks[index]["id"],
+                  ),
                 ),
               );
             },
