@@ -40,10 +40,13 @@ export default {
    * Twilio Phone Number
    */
   phoneNumber: process.env.PHONE_NUMBER,
-
+ 
   /**
-   * API configs
+   * The secret sauce to validate FCM
    */
+  fcmsecret: process.env.FCM_SECRET,
+
+
   api: {
     prefix: '/api',
   },
