@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
       drawer: AppDrawer(),
       body: SafeArea(
         child: Container(
-          color: Colors.indigo,
+          color: Colors.purple[800],
           height: MediaQuery.of(context).size.height,
           width: double.infinity,
           child: Stack(
@@ -82,7 +82,7 @@ class HomeScreen extends StatelessWidget {
                                         BorderRadius.all(Radius.circular(18))),
                                 child: Icon(
                                   Icons.date_range,
-                                  color: Colors.blue[900],
+                                  color: Color.fromRGBO(49, 39, 79, 1),
                                   size: 30,
                                 ),
                                 padding: EdgeInsets.all(12),
@@ -110,7 +110,7 @@ class HomeScreen extends StatelessWidget {
                                         BorderRadius.all(Radius.circular(18))),
                                 child: Icon(
                                   Icons.public,
-                                  color: Colors.blue[900],
+                                  color: Color.fromRGBO(49, 39, 79, 1),
                                   size: 30,
                                 ),
                                 padding: EdgeInsets.all(12),
@@ -138,7 +138,7 @@ class HomeScreen extends StatelessWidget {
                                         BorderRadius.all(Radius.circular(18))),
                                 child: Icon(
                                   Icons.trending_down,
-                                  color: Colors.blue[900],
+                                  color: Color.fromRGBO(49, 39, 79, 1),
                                   size: 30,
                                 ),
                                 padding: EdgeInsets.all(12),
