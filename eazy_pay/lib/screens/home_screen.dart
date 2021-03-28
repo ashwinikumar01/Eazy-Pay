@@ -1,5 +1,6 @@
 import 'dart:isolate';
 
+import 'package:eazy_pay/Screens/topup_screen.dart';
 import 'package:eazy_pay/widgets/app_drawer.dart';
 import 'package:eazy_pay/widgets/constants.dart';
 import 'package:flutter/material.dart';
@@ -112,60 +113,71 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Container(
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: Color.fromRGBO(243, 245, 248, 1),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(18))),
-                                child: Icon(
-                                  Icons.public,
-                                  color: Color.fromRGBO(49, 39, 79, 1),
-                                  size: 30,
+                        FlatButton(
+                          onPressed: () {},
+                          child: Container(
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: Color.fromRGBO(243, 245, 248, 1),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(18))),
+                                  child: Icon(
+                                    Icons.public,
+                                    color: Color.fromRGBO(49, 39, 79, 1),
+                                    size: 30,
+                                  ),
+                                  padding: EdgeInsets.all(12),
                                 ),
-                                padding: EdgeInsets.all(12),
-                              ),
-                              SizedBox(
-                                height: 4,
-                              ),
-                              Text(
-                                "Request",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 14,
-                                    color: Colors.blue[100]),
-                              ),
-                            ],
+                                SizedBox(
+                                  height: 4,
+                                ),
+                                Text(
+                                  "Request",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14,
+                                      color: Colors.blue[100]),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                        Container(
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: Color.fromRGBO(243, 245, 248, 1),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(18))),
-                                child: Icon(
-                                  Icons.trending_down,
-                                  color: Color.fromRGBO(49, 39, 79, 1),
-                                  size: 30,
+                        FlatButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Topup()));
+                          },
+                          child: Container(
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: Color.fromRGBO(243, 245, 248, 1),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(18))),
+                                  child: Icon(
+                                    Icons.trending_down,
+                                    color: Color.fromRGBO(49, 39, 79, 1),
+                                    size: 30,
+                                  ),
+                                  padding: EdgeInsets.all(12),
                                 ),
-                                padding: EdgeInsets.all(12),
-                              ),
-                              SizedBox(
-                                height: 4,
-                              ),
-                              Text(
-                                "Topup",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 14,
-                                    color: Colors.blue[100]),
-                              ),
-                            ],
+                                SizedBox(
+                                  height: 4,
+                                ),
+                                Text(
+                                  "Topup",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14,
+                                      color: Colors.blue[100]),
+                                ),
+                              ],
+                            ),
                           ),
                         )
                       ],
