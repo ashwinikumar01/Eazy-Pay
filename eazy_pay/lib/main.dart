@@ -1,8 +1,5 @@
-import 'package:eazy_pay/screens/home_screen.dart';
-import 'package:eazy_pay/Screens/login_page.dart';
-import 'package:eazy_pay/Screens/validation_screen.dart';
+import 'package:eazy_pay/screens/phone_verify/phone-verify_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:eazy_pay/Screens/signup_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Eazy Pay',
-      home: HomeScreen(),
+      home: PhoneVerifyScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

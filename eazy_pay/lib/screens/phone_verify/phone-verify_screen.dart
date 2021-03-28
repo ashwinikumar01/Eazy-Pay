@@ -1,7 +1,76 @@
+import 'dart:convert';
 import 'package:eazy_pay/Animation/FadeAnimation.dart';
+import 'package:eazy_pay/models/phone_verify.dart';
+import 'package:eazy_pay/widgets/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
-class Signup extends StatelessWidget {
+class PhoneVerifyScreen extends StatefulWidget {
+  @override
+  _PhoneVerifyScreenState createState() => _PhoneVerifyScreenState();
+}
+
+class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
+  final _phoneController = TextEditingController();
+  bool isLoading = false;
+  Map userData = {};
+
+  Future getUserData() async {
+    userData["phoneNumber"] = _phoneController.text;
+    print(userData);
+  }
+
+  Future<PhoneVerifyScreen> signUp() async {
+    try {
+      await getUserData();
+      setState(() {
+        isLoading = true;
+      });
+
+      final response = await http.post(
+        Uri.https(apiUrl, "api/auth/signup"),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: json.encode(userData),
+      );
+      print(response.body);
+      if (json.decode(response.body)["success"] == false) {
+        setState(() {
+          isLoading = false;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            duration: Duration(milliseconds: 5000),
+            content: Text(json.decode(response.body)["error"]),
+          ),
+        );
+      } else {
+        isLoading = false;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            duration: Duration(milliseconds: 5000),
+            content: Text(json.decode(response.body)["message"]),
+          ),
+        );
+      }
+      PhoneVerify.fromJson(json.decode(response.body));
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          duration: Duration(milliseconds: 5000),
+          content: Text(
+            error,
+          ),
+        ),
+      );
+      setState(() {
+        isLoading = false;
+      });
+      print(error);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,16 +85,17 @@ class Signup extends StatelessWidget {
                 child: Stack(
                   children: [
                     Positioned(
-                        child: FadeAnimation(
-                            1,
-                            Container(
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                image:
-                                    AssetImage('assets/images/background.PNG'),
-                                fit: BoxFit.fill,
-                              )),
-                            ))),
+                      child: FadeAnimation(
+                        1,
+                        Container(
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                            image: AssetImage('assets/images/background.PNG'),
+                            fit: BoxFit.fill,
+                          )),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -65,29 +135,20 @@ class Signup extends StatelessWidget {
                               Container(
                                 padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            color: Colors.grey[200]))),
-                                child: TextField(
-                                  keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: "Email address",
-                                      hintStyle: TextStyle(color: Colors.grey)),
+                                  border: Border(
+                                    bottom: BorderSide(
+                                      color: Colors.grey[200],
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            color: Colors.grey[200]))),
                                 child: TextField(
+                                  controller: _phoneController,
                                   keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: "Phone Number",
-                                      hintStyle: TextStyle(color: Colors.grey)),
+                                    border: InputBorder.none,
+                                    hintText: "Enter Your Phone No",
+                                    hintStyle: TextStyle(color: Colors.grey),
+                                  ),
                                 ),
                               ),
                             ],
