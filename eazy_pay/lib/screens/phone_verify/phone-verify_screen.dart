@@ -13,17 +13,26 @@ class PhoneVerifyScreen extends StatefulWidget {
 class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
   final _phoneController = TextEditingController();
   bool isLoading = false;
+  bool afterPhoneEnter = false;
   Map userData = {};
+  Future<PhoneVerify> banks;
+
+  @override
+  void initState() {
+    super.initState();
+    banks = signUp();
+  }
 
   Future getUserData() async {
     userData["phoneNumber"] = _phoneController.text;
     print(userData);
   }
 
-  Future<PhoneVerifyScreen> signUp() async {
+  Future<PhoneVerify> signUp() async {
     try {
       await getUserData();
       setState(() {
+        afterPhoneEnter = false;
         isLoading = true;
       });
 
@@ -37,6 +46,7 @@ class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
       print(response.body);
       if (json.decode(response.body)["success"] == false) {
         setState(() {
+          afterPhoneEnter = false;
           isLoading = false;
         });
         ScaffoldMessenger.of(context).showSnackBar(
@@ -46,7 +56,10 @@ class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
           ),
         );
       } else {
-        isLoading = false;
+        setState(() {
+          afterPhoneEnter = true;
+          isLoading = false;
+        });
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             duration: Duration(milliseconds: 5000),
@@ -65,6 +78,7 @@ class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
         ),
       );
       setState(() {
+        afterPhoneEnter = false;
         isLoading = false;
       });
       print(error);
@@ -183,6 +197,39 @@ class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
                         ),
                       ),
                     ),
+                    SizedBox(height: 8),
+                    isLoading
+                        ? Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : Container(
+                            height: 0,
+                            width: 0,
+                          ),
+                    SizedBox(height: 8),
+                    if (!isLoading && afterPhoneEnter)
+                      FutureBuilder(
+                        future: banks,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                                  ConnectionState.none &&
+                              snapshot.hasData == null) {
+                            return Container(
+                              height: 0,
+                              width: 0,
+                            );
+                          }
+                          return ListView.builder(
+                            itemCount: snapshot.data.banks.length,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                title:
+                                    Text("${snapshot.data.banks[index].name}"),
+                              );
+                            },
+                          );
+                        },
+                      ),
                   ],
                 ),
               ),
