@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:eazy_pay/Animation/FadeAnimation.dart';
 import 'package:eazy_pay/models/phone_verify.dart';
+import 'package:eazy_pay/screens/phone_verify/banks_list.dart';
 import 'package:eazy_pay/widgets/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -53,7 +54,7 @@ class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
       } else {
         setState(() {
           banks = json.decode(response.body)["banks"];
-          print(banks);
+          print(banks[0]["name"]);
           afterPhoneEnter = true;
           isLoading = false;
         });
@@ -177,6 +178,12 @@ class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
                           );
                         } else {
                           await signUp();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BanksList(banks: banks),
+                            ),
+                          );
                         }
                       },
                       child: Container(
@@ -208,41 +215,15 @@ class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
               ),
             ],
           ),
-          SizedBox(height: 8),
-          (!isLoading && afterPhoneEnter)
-              ? BanksList(banks: banks)
-              : Container(
-                  height: 0,
-                  width: 0,
-                ),
+          // SizedBox(height: 8),
+          // (!isLoading && afterPhoneEnter)
+          //     ? BanksList(banks: banks)
+          //     : Container(
+          //         height: 0,
+          //         width: 0,
+          //       ),
         ],
       ),
-    );
-  }
-}
-
-class BanksList extends StatelessWidget {
-  const BanksList({
-    Key key,
-    @required this.banks,
-  }) : super(key: key);
-
-  final List banks;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: banks.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(
-            banks[index].name,
-            style: TextStyle(
-              color: Colors.black,
-            ),
-          ),
-        );
-      },
     );
   }
 }
