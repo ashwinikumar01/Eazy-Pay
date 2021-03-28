@@ -15,7 +15,7 @@ class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
   bool isLoading = false;
   bool afterPhoneEnter = false;
   Map userData = {};
-  List banksList = [];
+  List banks = [];
 
   Future getUserData() async {
     userData["phoneNumber"] = _phoneController.text;
@@ -52,7 +52,8 @@ class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
         );
       } else {
         setState(() {
-          banksList = json.decode(response.body)["banks"];
+          banks = json.decode(response.body)["banks"];
+          print(banks);
           afterPhoneEnter = true;
           isLoading = false;
         });
@@ -209,28 +210,39 @@ class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
           ),
           SizedBox(height: 8),
           (!isLoading && afterPhoneEnter)
-              ? ListView.builder(
-                  itemCount: banksList.length,
-                  itemBuilder: (context, index) {
-                    print(banksList[index].name);
-                    return Expanded(
-                      child: ListTile(
-                        title: Text(
-                          banksList[index].name,
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                )
+              ? BanksList(banks: banks)
               : Container(
                   height: 0,
                   width: 0,
                 ),
         ],
       ),
+    );
+  }
+}
+
+class BanksList extends StatelessWidget {
+  const BanksList({
+    Key key,
+    @required this.banks,
+  }) : super(key: key);
+
+  final List banks;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: banks.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text(
+            banks[index].name,
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+        );
+      },
     );
   }
 }
