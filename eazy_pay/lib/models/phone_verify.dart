@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final phoneVerify = phoneVerifyFromJson(jsonString);
-
 import 'dart:convert';
 
 PhoneVerify phoneVerifyFromJson(String str) =>

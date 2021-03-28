@@ -28,7 +28,7 @@ class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
       });
 
       final response = await http.post(
-        Uri.https(apiUrl, "api/auth/signup"),
+        Uri.https(apiUrl, "/api/auth/signup"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -60,7 +60,7 @@ class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
         SnackBar(
           duration: Duration(milliseconds: 5000),
           content: Text(
-            error,
+            error.toString(),
           ),
         ),
       );
@@ -110,7 +110,7 @@ class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
                     FadeAnimation(
                         1.3,
                         Text(
-                          "Sign Up",
+                          "Phone Verify",
                           style: TextStyle(
                               color: Color.fromRGBO(49, 39, 79, 1),
                               fontSize: 25,
@@ -143,7 +143,6 @@ class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
                                 ),
                                 child: TextField(
                                   controller: _phoneController,
-                                  keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
                                     hintText: "Enter Your Phone No",
@@ -155,29 +154,33 @@ class _PhoneVerifyScreenState extends State<PhoneVerifyScreen> {
                           ),
                         )),
                     SizedBox(height: 40),
-                    FadeAnimation(
-                        1.7,
-                        Container(
-                          height: 50,
-                          margin: EdgeInsets.symmetric(horizontal: 60),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: Color.fromRGBO(49, 39, 79, 1),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "Submit",
-                              style: TextStyle(color: Colors.white),
+                    GestureDetector(
+                      onTap: () async {
+                        if (_phoneController.text == "" ||
+                            _phoneController.text.length < 10) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              duration: Duration(milliseconds: 5000),
+                              content: Text("Please enter valid details"),
                             ),
+                          );
+                        } else {
+                          await signUp();
+                        }
+                      },
+                      child: Container(
+                        height: 50,
+                        margin: EdgeInsets.symmetric(horizontal: 60),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: Color.fromRGBO(49, 39, 79, 1),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Submit",
+                            style: TextStyle(color: Colors.white),
                           ),
-                        )),
-                    SizedBox(height: 40.0),
-                    Center(
-                      child: Text(
-                        "Already have an account?",
-                        style: TextStyle(
-                            color: Color.fromRGBO(49, 39, 79, .6),
-                            fontSize: 15.0),
+                        ),
                       ),
                     ),
                   ],
