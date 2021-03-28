@@ -18,7 +18,7 @@ Future<dynamic> startAdvertising() async {
       onDisconnected: (String id) {
         // Callled whenever a discoverer disconnects from advertiser
       },
-      serviceId: "com.yourdomain.appname", // uniquely identifies your app
+      serviceId: "com.example.eazy_pay", // uniquely identifies your app
     );
   } catch (exception) {
     // platform exceptions like unable to start bluetooth or insufficient permissions
